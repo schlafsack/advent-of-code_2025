@@ -7,9 +7,9 @@ pub fn day_1_task_1(start: i32, filename: &str) -> i32 {
         .map_while(Result::ok)
         .map(parse_movement)
         .fold((0, start), |(a, b), i| {
+            let c = (b == 0) as i32;
             let n = (b + i).rem_euclid(100);
-            let n1 = (n == 0) as i32;
-            (a + n1 , n)
+            (a + c , n)
         }).0
 }
 
@@ -19,10 +19,10 @@ pub fn day_1_task_2(start: i32, filename: &str) -> i32 {
         .map_while(Result::ok)
         .map(parse_movement)
         .fold((0, start), |(a, b), i| {
-            let n = (b + i).rem_euclid(100); // new dial position
-            let n1 = (b + i).abs().div(100); // number of whole turns past 0
-            let n2 = (b != 0 && b + i <= 0) as i32; // number of partial turns past 0
-            (a + n1 + n2 , n)
+            let c1 = (b + i).abs().div(100); // number of whole turns past 0
+            let c2 = (b != 0 && b + i <= 0) as i32; // number of partial turns past 0
+            let n = (b + i).rem_euclid(100);
+            (a + c1 + c2 , n)
         }).0
 }
 
